@@ -11,9 +11,13 @@
 - `cube.html/css/js`, `nimcaal.*`, `mtsn10.*` — varian AI lain
 - `index.html`, `app.js` — browser Hubbase/Bicom
 
+## Download (Windows 64-bit)
+
+Ambil versi jadi di tab **Releases**: `Bacapi-5.6.0-win64.zip` → ekstrak → jalankan `Bacapi.exe`. Tanpa install, tanpa admin.
+
 ## Syarat
 
-- Windows 64-bit, Chrome/Edge (untuk versi web)
+- Windows 64-bit
 - API key OpenRouter: https://openrouter.ai/keys (tidak ikut di repo — isi di aplikasi, sekali saja)
 
 ## Cara pakai
