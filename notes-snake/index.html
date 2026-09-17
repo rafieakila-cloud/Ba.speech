@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NotesSnake</title>
+<link rel="icon" href="logo.svg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Inter,Arial,sans-serif;background:#0d0f14;color:#ececec;min-height:100vh}
+#app{max-width:900px;margin:0 auto;padding:28px 18px 50px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+header img{height:44px}
+p.sub{color:#9AA0AE;font-size:13px;margin-bottom:16px}
+#tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+input,textarea,button,select{background:#171A21;color:#ececec;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit}
+#q{flex:1;min-width:160px}
+button{cursor:pointer}
+#btn-add{background:#E8821E;border:none;font-weight:700;color:#111}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.note{background:#12151c;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.note.pin{border-color:#E8821E}
+.note h3{font-size:15px;outline:none}
+.note p{font-size:13px;color:#b4b4b4;white-space:pre-wrap;outline:none;min-height:40px}
+.note .row{display:flex;gap:6px}
+.note .row button{font-size:12px;padding:6px 10px}
+.note small{color:#666;font-size:11px}
+#status{font-size:12px;color:#9AA0AE;margin-top:12px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header><img src="logo.svg" alt="NotesSnake"></header>
+  <p class="sub">Catatan lokal cepat. Tersimpan otomatis di browser, tanpa akun, tanpa server.</p>
+  <div id="tools">
+    <input id="q" placeholder="Cari catatan…">
+    <button id="btn-add">+ Catatan</button>
+    <button id="btn-exp">Export .md</button>
+  </div>
+  <div id="grid"></div>
+  <div id="status"></div>
+</div>
+<script>
+const grid=document.getElementById('grid'),st=document.getElementById('status');
+let notes=[];
+try{notes=JSON.parse(localStorage.getItem('snakenotes')||'[]');}catch(e){notes=[];}
+function save(){try{localStorage.setItem('snakenotes',JSON.stringify(notes.slice(0,200)));}catch(e){}st.textContent=notes.length+' catatan tersimpan lokal.';}
+function render(){
+  const q=(document.getElementById('q').value||'').toLowerCase();
+  grid.innerHTML='';
+  notes.map((n,i)=>({n,i})).filter(o=>!q||(o.n.t+o.n.x).toLowerCase().includes(q))
+    .sort((a,b)=>(b.n.pin-a.n.pin)||(b.n.at-a.n.at)).forEach(o=>{
+    const d=document.createElement('div');d.className='note'+(o.n.pin?' pin':'');
+    d.innerHTML='<h3 contenteditable></h3><p contenteditable></p><small></small><div class="row"><button data-a="pin">Pin</button><button data-a="txt">.txt</button><button data-a="del">Hapus</button></div>';
+    d.querySelector('h3').textContent=o.n.t||'Tanpa judul';
+    d.querySelector('p').textContent=o.n.x;
+    d.querySelector('small').textContent=new Date(o.n.at).toLocaleString('id-ID');
+    d.querySelector('h3').onblur=e=>{o.n.t=e.target.textContent;save();};
+    d.querySelector('p').onblur=e=>{o.n.x=e.target.textContent;save();};
+    d.querySelectorAll('button').forEach(b=>b.onclick=()=>{
+      if(b.dataset.a==='del'){notes.splice(o.i,1);}
+      if(b.dataset.a==='pin'){o.n.pin=!o.n.pin;}
+      if(b.dataset.a==='txt'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([(o.n.t||'')+'\n\n'+o.n.x],{type:'text/plain'}));a.download='nota.txt';a.click();}
+      save();render();
+    });
+    grid.appendChild(d);
+  });
+}
+document.getElementById('btn-add').onclick=()=>{notes.unshift({t:'',x:'',at:Date.now(),pin:false});save();render();const h=grid.querySelector('h3');if(h)h.focus();};
+document.getElementById('q').oninput=render;
+document.getElementById('btn-exp').onclick=()=>{
+  const md=notes.map(n=>'## '+(n.t||'Tanpa judul')+'\n'+n.x).join('\n\n---\n\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([md],{type:'text/markdown'}));a.download='notes-snake.md';a.click();
+};
+render();save();
+</script>
+</body>
+</html>
