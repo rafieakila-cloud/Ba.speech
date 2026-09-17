@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hubbase — Bicom Browser</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="browser-app">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <div class="window-controls">
+                    <span class="control close"></span>
+                    <span class="control minimize"></span>
+                    <span class="control maximize"></span>
+                </div>
+                <div class="app-brand">
+                    <div class="brand-logo">🌐</div>
+                    <div class="brand-text">
+                        <span class="brand-name">Hubbase</span>
+                        <span class="browser-name">Bicom Browser</span>
+                    </div>
+                </div>
+            </div>
+            <div class="title-bar-right">
+                <button id="btn-bookmarks" class="title-btn" title="Bookmark">⭐</button>
+                <button id="btn-history" class="title-btn" title="Histori">🕐</button>
+                <button id="btn-downloads" class="title-btn" title="Downloads">📥</button>
+                <button id="btn-settings" class="title-btn" title="Pengaturan">⚙️</button>
+            </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tabs" id="tabs-container"></div>
+            <button id="btn-new-tab" class="new-tab-btn" title="Tab Baru">+</button>
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-buttons">
+                <button id="btn-back" class="nav-btn" title="Kembali">◀</button>
+                <button id="btn-forward" class="nav-btn" title="Maju">▶</button>
+                <button id="btn-refresh" class="nav-btn" title="Segarkan">🔄</button>
+                <button id="btn-home" class="nav-btn" title="Beranda">🏠</button>
+            </div>
+            <div class="address-bar">
+                <span class="lock-icon" id="lock-icon">🔍</span>
+                <input type="text" id="url-input" placeholder="Ketik URL atau cari..." autocomplete="off" spellcheck="false">
+                <button id="btn-bookmark-add" class="bookmark-star" title="Bookmark halaman ini">☆</button>
+            </div>
+            <div class="nav-extra">
+                <button id="btn-wiki-mode" class="nav-btn accent-btn" title="Mode Wikipedia">📚 Wiki</button>
+                <button id="btn-sidebar" class="nav-btn" title="Sidebar">☰</button>
+            </div>
+        </div>
+
+        <!-- Bookmarks Bar -->
+        <div class="bookmarks-bar" id="bookmarks-bar">
+            <div class="bookmark-item" data-url="https://www.google.com">
+                <span class="bm-icon">🔍</span><span class="bm-label">Google</span>
+            </div>
+            <div class="bookmark-item" data-url="https://www.youtube.com">
+                <span class="bm-icon">▶️</span><span class="bm-label">YouTube</span>
+            </div>
+            <div class="bookmark-item" data-url="https://www.wikipedia.org">
+                <span class="bm-icon">📚</span><span class="bm-label">Wikipedia</span>
+            </div>
+            <div class="bookmark-item" data-url="https://github.com">
+                <span class="bm-icon">🐙</span><span class="bm-label">GitHub</span>
+            </div>
+            <div class="bookmark-item" data-url="https://twitter.com">
+                <span class="bm-icon">🐦</span><span class="bm-label">Twitter</span>
+            </div>
+            <div class="bookmark-item" data-url="https://reddit.com">
+                <span class="bm-icon">🤖</span><span class="bm-label">Reddit</span>
+            </div>
+            <div class="bookmark-item" data-url="https://www.amazon.com">
+                <span class="bm-icon">📦</span><span class="bm-label">Amazon</span>
+            </div>
+            <div class="bookmark-item" data-url="https://www.netflix.com">
+                <span class="bm-icon">🎬</span><span class="bm-label">Netflix</span>
+            </div>
+            <div class="bookmark-item" data-url="https://www.spotify.com">
+                <span class="bm-icon">🎵</span><span class="bm-label">Spotify</span>
+            </div>
+            <div class="bookmark-item" data-url="https://id.wikipedia.org">
+                <span class="bm-icon">🇮🇩</span><span class="bm-label">Wiki ID</span>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="content-area" id="content-area">
+            <!-- Pages rendered dynamically per tab -->
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span id="status-text">Siap</span>
+            <span id="status-security" class="security-badge">🔒 Aman</span>
+        </div>
+    </div>
+
+    <!-- Image Viewer Modal -->
+    <div id="image-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">×</button>
+            <div class="modal-image-container">
+                <img id="modal-image" src="" alt="">
+            </div>
+            <div class="modal-caption" id="modal-caption"></div>
+        </div>
+    </div>
+
+    <!-- Sidebar Panel -->
+    <div id="sidebar-panel" class="sidebar hidden">
+        <div class="sidebar-header">
+            <h3>Hubbase Sidebar</h3>
+            <button class="sidebar-close" id="sidebar-close">✕</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4>🌍 Website Populer</h4>
+                <div class="sidebar-links">
+                    <div class="sidebar-link" data-url="https://www.google.com"><span>🔍</span> Google</div>
+                    <div class="sidebar-link" data-url="https://www.youtube.com"><span>▶️</span> YouTube</div>
+                    <div class="sidebar-link" data-url="https://www.facebook.com"><span>👥</span> Facebook</div>
+                    <div class="sidebar-link" data-url="https://www.instagram.com"><span>📷</span> Instagram</div>
+                    <div class="sidebar-link" data-url="https://twitter.com"><span>🐦</span> Twitter / X</div>
+                    <div class="sidebar-link" data-url="https://www.tiktok.com"><span>🎵</span> TikTok</div>
+                    <div class="sidebar-link" data-url="https://www.reddit.com"><span>🤖</span> Reddit</div>
+                    <div class="sidebar-link" data-url="https://www.linkedin.com"><span>💼</span> LinkedIn</div>
+                    <div class="sidebar-link" data-url="https://github.com"><span>🐙</span> GitHub</div>
+                    <div class="sidebar-link" data-url="https://stackoverflow.com"><span>📝</span> Stack Overflow</div>
+                    <div class="sidebar-link" data-url="https://www.amazon.com"><span>📦</span> Amazon</div>
+                    <div class="sidebar-link" data-url="https://www.ebay.com"><span>🛒</span> eBay</div>
+                    <div class="sidebar-link" data-url="https://www.netflix.com"><span>🎬</span> Netflix</div>
+                    <div class="sidebar-link" data-url="https://www.spotify.com"><span>🎵</span> Spotify</div>
+                    <div class="sidebar-link" data-url="https://medium.com"><span>✍️</span> Medium</div>
+                    <div class="sidebar-link" data-url="https://news.ycombinator.com"><span>📰</span> Hacker News</div>
+                    <div class="sidebar-link" data-url="https://www.wikipedia.org"><span>📚</span> Wikipedia</div>
+                    <div class="sidebar-link" data-url="https://www.cnn.com"><span>📺</span> CNN</div>
+                    <div class="sidebar-link" data-url="https://www.bbc.com"><span>📺</span> BBC</div>
+                    <div class="sidebar-link" data-url="https://detik.com"><span>📰</span> Detik</div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h4>🇮🇩 Berita Indonesia</h4>
+                <div class="sidebar-links">
+                    <div class="sidebar-link" data-url="https://kompas.com"><span>📰</span> Kompas</div>
+                    <div class="sidebar-link" data-url="https://detik.com"><span>📰</span> Detik</div>
+                    <div class="sidebar-link" data-url="https://www.tempo.co"><span>📰</span> Tempo</div>
+                    <div class="sidebar-link" data-url="https://www.kompas.tv"><span>📺</span> Kompas TV</div>
+                    <div class="sidebar-link" data-url="https://www.antaranews.com"><span>📰</span> Antara</div>
+                    <div class="sidebar-link" data-url="https://www.republika.co.id"><span>📰</span> Republika</div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h4>🎮 Hiburan</h4>
+                <div class="sidebar-links">
+                    <div class="sidebar-link" data-url="https://www.twitch.tv"><span>🎮</span> Twitch</div>
+                    <div class="sidebar-link" data-url="https://www.twitch.tv/directory"><span>🎮</span> Twitch Directory</div>
+                    <div class="sidebar-link" data-url="https://store.steampowered.com"><span>🎮</span> Steam</div>
+                    <div class="sidebar-link" data-url="https://www.roblox.com"><span>🎮</span> Roblox</div>
+                    <div class="sidebar-link" data-url="https://poki.com"><span>🎮</span> Poki Games</div>
+                </div>
+            </div>
+            <div class="sidebar-section">
+                <h4>🛠️ Tools</h4>
+                <div class="sidebar-links">
+                    <div class="sidebar-link" data-url="https://translate.google.com"><span>🌐</span> Google Translate</div>
+                    <div class="sidebar-link" data-url="https://drive.google.com"><span>☁️</span> Google Drive</div>
+                    <div class="sidebar-link" data-url="https://mail.google.com"><span>📧</span> Gmail</div>
+                    <div class="sidebar-link" data-url="https://www.overleaf.com"><span>📄</span> Overleaf</div>
+                    <div class="sidebar-link" data-url="https://www.figma.com"><span>🎨</span> Figma</div>
+                    <div class="sidebar-link" data-url="https://notion.so"><span>📝</span> Notion</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

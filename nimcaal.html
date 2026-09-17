@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NimCaal</title>
+<link rel="stylesheet" href="nimcaal.css">
+</head>
+<body>
+<div id="layout">
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="#C15F3C"/></svg>
+      </span>
+      <span class="brand-name">NimCaal</span>
+      <button id="btn-collapse" class="icon-btn" title="Sembunyikan panel">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+    </div>
+    <button id="btn-new" class="btn-new">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
+      Chat baru
+    </button>
+    <div class="side-label">Riwayat</div>
+    <div id="history"></div>
+    <div class="side-label">Connect</div>
+    <div id="connect-list">
+      <button class="conn" data-app="whatsapp">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 21l2-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        <span>WhatsApp</span><i class="dot"></i>
+      </button>
+      <button class="conn" data-app="word">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        <span>Word</span><i class="dot"></i>
+      </button>
+      <button class="conn" data-app="telegram">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <span>Telegram</span><i class="dot"></i>
+      </button>
+      <button class="conn" data-app="email">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+        <span>Email</span><i class="dot"></i>
+      </button>
+    </div>
+    <div class="side-foot">
+      <button id="btn-key" class="side-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L21 2m-4 2l3 3m-6 0l2 2"/></svg>
+        API Key
+      </button>
+      <div id="key-panel" class="hidden">
+        <input type="password" id="api-key" placeholder="sk-or-v1-...">
+        <input type="text" id="wa-number" placeholder="No. WA cth: 62812xxxx (opsional)">
+        <button id="btn-save-key">Simpan</button>
+        <p>Key hanya tersimpan di browser ini.</p>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main id="main">
+    <header id="topbar">
+      <div id="model-picker">
+        <button id="model-btn">
+          <span id="model-name">Pilih model…</span>
+          <span id="model-status" class="pill">belum dimuat</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div id="model-drop" class="hidden">
+          <div class="model-tools">
+            <input id="model-search" placeholder="Cari model…">
+            <button id="model-refresh" title="Muat ulang daftar model">Muat</button>
+          </div>
+          <input id="model-custom" placeholder="Atau ketik manual cth: openai/gpt-4o-mini lalu Enter">
+          <div id="model-list"></div>
+        </div>
+      </div>
+      <div id="mode-tabs">
+        <button id="tab-chat" class="active">Chat</button>
+        <button id="tab-coder">Coder</button>
+      </div>
+      <div class="top-actions">
+        <button id="btn-export" class="icon-btn" title="Kirim jawaban terakhir via Connect">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
+        </button>
+        <button id="btn-dlall" class="icon-btn hidden" title="Unduh semua file dari jawaban terakhir">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- CODER PANEL : PRD + TASKS -->
+    <section id="coder-panel" class="hidden">
+      <div class="coder-col">
+        <label>PRD / Spesifikasi</label>
+        <textarea id="prd" rows="3" placeholder="Tulis kebutuhan aplikasi… cth: Aplikasi kasir: login, tambah barang, cetak struk. Stack: HTML+JS."></textarea>
+      </div>
+      <div class="coder-col">
+        <label>Tasks</label>
+        <div class="task-row">
+          <input id="task-input" placeholder="Tambah task… lalu Enter">
+          <button id="btn-prd">Susun PRD</button>
+          <button id="btn-gen" class="primary">Generate</button>
+        </div>
+        <ul id="task-list"></ul>
+      </div>
+    </section>
+
+    <div id="chat"></div>
+
+    <div id="export-bar" class="hidden">
+      <span>Kirim jawaban terakhir ke:</span>
+      <button data-go="whatsapp">WhatsApp</button>
+      <button data-go="word">Word (.doc)</button>
+      <button data-go="md">Markdown (.md)</button>
+      <button data-go="telegram">Telegram</button>
+      <button data-go="email">Email</button>
+    </div>
+
+    <footer id="composer">
+      <textarea id="input" rows="1" placeholder="Tanyakan apa saja…"></textarea>
+      <button id="btn-send" title="Kirim">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+      </button>
+    </footer>
+    <div id="status">Memuat daftar model…</div>
+  </main>
+</div>
+<script src="nimcaal.js"></script>
+</body>
+</html>

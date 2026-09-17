@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bacapi</title>
+<link rel="icon" href="bacapi-logo.svg">
+<link rel="stylesheet" href="bacapi.css">
+</head>
+<body>
+<div id="app">
+  <aside id="side">
+    <div class="side-top">
+      <div class="brand"><span class="logo">B</span><span class="bname">Bacapi</span></div>
+      <button id="btn-new" title="Chat baru"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+    </div>
+    <div id="modes">
+      <button data-m="chat" class="active">Chat</button>
+      <button data-m="work">Work</button>
+      <button data-m="codev">Codev</button>
+    </div>
+    <div class="lbl">Plugins</div>
+    <div id="plugins"></div>
+    <div class="lbl">Chats</div>
+    <div id="threads"></div>
+    <div class="sp"></div>
+    <div id="userbox">
+      <button id="btn-auth">Log in</button>
+      <button id="btn-key">API key</button>
+    </div>
+  </aside>
+  <main id="main">
+    <header id="top">
+      <button id="model-btn"><span id="model-name">openrouter/free</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg><span id="model-pill">…</span></button>
+      <div id="model-drop" class="hidden"><input id="model-search" placeholder="Search models…"><div id="model-list"></div></div>
+      <span id="who">Bacapi</span>
+      <button id="btn-fs" title="Fullscreen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg></button>
+    </header>
+    <section id="view-home">
+      <h1 id="greet">Mau dibantu apa hari ini?</h1>
+      <p class="tag">Chat • Work • Codev • Plugins • Gambar</p>
+      <div id="chips">
+        <button>Buatkan cerita kelinci untuk Word</button>
+        <button>Buatkan todo app siap download</button>
+        <button>Buatkan mindmap rencanaku</button>
+      </div>
+    </section>
+    <section id="view-thread" class="hidden">
+      <div id="steps"></div>
+      <div id="laptop" class="hidden"><div class="orb"></div><div class="twords"><span>Memahami…</span><span>Menalar…</span><span>Menyusun…</span></div></div>
+      <div id="brain" class="hidden"><svg class="brain" viewBox="0 0 120 90"><g class="edges"><line x1="60" y1="18" x2="30" y2="45"/><line x1="60" y1="18" x2="90" y2="45"/><line x1="30" y1="45" x2="60" y2="70"/><line x1="90" y1="45" x2="60" y2="70"/><line x1="30" y1="45" x2="90" y2="45"/><line x1="60" y1="18" x2="60" y2="70"/></g><g class="nodes"><circle cx="60" cy="18" r="7"/><circle cx="30" cy="45" r="7"/><circle cx="90" cy="45" r="7"/><circle cx="60" cy="70" r="7"/></g></svg><span id="bstep">Menganalisis…</span></div>
+      <div id="codeanim" class="hidden"><div class="term"><div class="tbar"><i></i><i></i><i></i></div><div class="tbody"><div class="tline" style="--w:82%"></div><div class="tline" style="--w:58%"></div><div class="tline" style="--w:70%"></div><div class="tline" style="--w:44%"></div><div class="tline" style="--w:90%"></div></div></div><span>Menulis kode…</span></div>
+      <div id="paint" class="hidden"><svg class="psvg" viewBox="0 0 200 70"><path class="pline" d="M8 52 C 50 52, 55 18, 95 26 S 160 50, 192 22" fill="none"/><g class="pencil"><rect x="-3" y="-3" width="26" height="7" rx="1.5" transform="rotate(8)"/><polygon points="23,-3 34,0.5 23,4" transform="rotate(8)" /></g></svg><span>Melukis…</span></div>
+      <div id="memupd" class="hidden"><div class="mnet"><i></i><i></i><i></i><i></i></div><span>Menyimpan ke otak…</span></div>
+      <div id="answer"></div>
+      <div id="canvas" class="hidden"><div class="canvas-head"><span>Preview</span><button id="btn-canvas-close">×</button></div><iframe id="canvas-frame" sandbox="allow-scripts"></iframe></div>
+    </section>
+    <div id="composer-wrap">
+      <div id="dock">
+        <label id="attach" title="Attach photo">+<input type="file" id="file" accept="image/*" multiple hidden></label>
+        <button id="btn-deep" title="Longer answers">Deep</button>
+        <button id="btn-ds" title="Deep Search riset mendalam">Search</button>
+        <textarea id="q" rows="1" placeholder="Message Bacapi…"></textarea>
+        <button id="btn-ask" title="Send"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+      </div>
+      <div id="att-list"></div>
+    </div>
+    <div id="status">Ready.</div>
+  </main>
+</div>
+<div id="auth-modal" class="hidden"><div class="card">
+  <h3>Welcome</h3><p class="tiny">One local account works in Cube, Bacapi and MTsN 10 AI.</p>
+  <div class="tabs"><button id="t-login" class="active">Log in</button><button id="t-reg">Sign up</button></div>
+  <label>Username<input id="a-user"></label><label>Password<input id="a-pass" type="password"></label>
+  <div class="mrow"><button id="btn-go">Continue</button><button id="btn-close">Close</button></div>
+  <p id="auth-msg" class="tiny"></p>
+</div></div>
+<div id="keymodal" class="hidden"><div class="card">
+  <h3>API key</h3><input type="password" id="api-key" placeholder="sk-or-v1-…">
+  <label style="font-size:12px">Image model (optional)<input id="img-model" placeholder="google/gemini-2.5-flash-image"></label>
+  <div class="mrow"><button id="btn-save-key">Save</button><button id="btn-key-close">Close</button></div>
+  <p class="tiny">Free image generation uses Pollinations, no key needed.</p>
+</div></div>
+<div id="setup-modal" class="hidden"><div class="card">
+  <h3>Setup Bacapi sekali saja</h3><p class="tiny">Isi nama akun + API key 1x. Ganti belakangan via tombol API key.</p>
+  <label>Nama akun<input id="s-name" placeholder="cth: Rafie"></label>
+  <label>OpenRouter API key<input id="s-key" type="password" placeholder="sk-or-v1-…"></label>
+  <div class="mrow"><button id="btn-setup-go">Mulai</button></div>
+  <p id="setup-msg" class="tiny"></p>
+</div></div>
+<script src="bacapi.js"></script>
+</body>
+</html>

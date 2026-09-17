@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Download Bacapi Desktop</title>
+<link rel="icon" href="bacapi-logo.svg">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Inter,Arial,sans-serif;background:#0d0f14;color:#ececec;min-height:100vh;overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:0;animation:float 12s ease-in-out infinite}
+.b1{width:480px;height:480px;background:#4285F4;top:-140px;left:-120px}
+.b2{width:420px;height:420px;background:#9B72CB;bottom:-140px;right:-100px;animation-delay:-4s}
+.b3{width:300px;height:300px;background:#D96570;top:40%;left:60%;animation-delay:-8s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,-40px)}}
+.wrap{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:48px 20px 60px;text-align:center}
+.logo{width:76px;height:76px;margin:0 auto;animation:pop .7s ease}
+@keyframes pop{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+h1{font-family:Georgia,serif;font-size:46px;margin:16px 0 8px;animation:up .7s ease .1s both}
+p.sub{color:#b4b4b4;animation:up .7s ease .2s both}
+@keyframes up{from{transform:translateY(18px);opacity:0}to{transform:none;opacity:1}}
+.term{margin:28px auto 0;max-width:640px;background:#12151c;border:1px solid rgba(255,255,255,.1);border-radius:14px;text-align:left;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:up .7s ease .3s both}
+.tbar{display:flex;gap:6px;padding:10px 12px;background:#1a1e27}
+.tbar i{width:10px;height:10px;border-radius:50%;background:#444;display:block}
+.tbar i:first-child{background:#D96570}.tbar i:nth-child(2){background:#EBC02A}.tbar i:nth-child(3){background:#3DDC84}
+#tout{height:220px;overflow-y:auto;padding:12px 14px;font-family:Consolas,monospace;font-size:13px;line-height:1.7;white-space:pre-wrap}
+#tout .ok{color:#3DDC84}#tout .warn{color:#EBC02A}
+.tin{display:flex;border-top:1px solid rgba(255,255,255,.1);padding:10px 14px;font-family:Consolas,monospace;font-size:13px}
+.tin span{color:#9B72CB;margin-right:8px}
+.tin input{flex:1;background:none;border:none;outline:none;color:#fff;font:inherit}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:30px 0;animation:up .7s ease .4s both}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px;font-size:14px;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:#9B72CB}
+.card b{display:block;margin-bottom:6px}.card small{color:#b4b4b4}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;animation:up .7s ease .5s both}
+a.btn,.btn{background:linear-gradient(135deg,#4285F4,#9B72CB);color:#fff;text-decoration:none;border:none;border-radius:24px;padding:13px 28px;font-size:15px;font-weight:700;cursor:pointer}
+a.ghost{background:transparent;border:1px solid rgba(255,255,255,.25)}
+ol.steps{text-align:left;max-width:560px;margin:26px auto 0;color:#b4b4b4;font-size:14px;line-height:2}
+ol.steps b{color:#fff}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="wrap">
+  <img class="logo" src="bacapi-logo.svg" alt="Bacapi">
+  <h1>Bacapi Desktop</h1>
+  <p class="sub">AI desktop Bacium V5.6 — Chat • Work • Codev • Plugins • Gambar</p>
+  <div class="term">
+    <div class="tbar"><i></i><i></i><i></i></div>
+    <div id="tout">Bacapi installer v1.0 — ketik <b>help</b> untuk perintah.
+</div>
+    <div class="tin"><span>C:\bacapi&gt;</span><input id="tin" autocomplete="off" placeholder="ketik: hit.bacapi"></div>
+  </div>
+  <div class="grid">
+    <div class="card"><b>1. Terminal</b><small>Ketik <b>hit.bacapi</b> di terminal atas, lalu <b>install</b>.</small></div>
+    <div class="card"><b>2. Download</b><small>Installer .bat terunduh beneran + tab Bacapi terbuka.</small></div>
+    <div class="card"><b>3. Install</b><small>Jalankan .bat → Bacapi.exe dirakit + ikon tanam di Desktop.</small></div>
+    <div class="card"><b>4. Setup sekali</b><small>Buka Bacapi.exe → nama akun + API key 1x.</small></div>
+  </div>
+  <div class="btns">
+    <a class="btn" href="InstallBacapi.bat" download>Download Installer</a>
+    <a class="btn ghost" href="bacapi-logo.svg" download>Logo</a>
+    <a class="btn ghost" href="bacapi.html" target="_blank">Buka Bacapi</a>
+  </div>
+  <ol class="steps">
+    <li>Jalankan <b>InstallBacapi.bat</b> (klik 2x) → <b>Bacapi.exe</b> dirakit di %LOCALAPPDATA%\BacapiApp.</li>
+    <li>Ikon <b>Bacapi</b> (.lnk ke .exe beneran) muncul di Desktop → klik kanan → <b>Pin to taskbar</b>.</li>
+    <li>Buka → isi <b>nama akun + API key sekali saja</b> → ganti kapan saja via tombol API key.</li>
+  </ol>
+</div>
+<script>
+const out=document.getElementById('tout'),inp=document.getElementById('tin');
+let pending=false;
+function print(t,cls){ const d=document.createElement('div'); if(cls)d.className=cls; d.textContent=t; out.appendChild(d); out.scrollTop=out.scrollHeight; }
+inp.addEventListener('keydown',function(e){
+  if(e.key!=='Enter')return;
+  const c=inp.value.trim(); print('C:\\bacapi> '+c); inp.value='';
+  if(c==='help'){print('Perintah: hit.bacapi | install | batal | buka');}
+  else if(c==='hit.bacapi'){print('Download Bacapi Desktop?','ok');print("Ketik 'install' untuk install, 'batal' untuk batal.",'warn');pending=true;}
+  else if(c==='install'&&pending){pending=false;install();}
+  else if(c==='install'){print("Ketik 'hit.bacapi' dulu.",'warn');}
+  else if(c==='batal'){pending=false;print('Dibatalkan.');}
+  else if(c==='buka'){window.open('bacapi.html','_blank');}
+  else{print("Perintah tidak dikenal. Ketik 'help'.",'warn');}
+});
+function install(){
+  print('Mengunduh InstallBacapi.bat ...','ok');
+  const a=document.createElement('a');a.href='InstallBacapi.bat';a.download='InstallBacapi.bat';document.body.appendChild(a);a.click();a.remove();
+  print('Berhasil di-download. Membuka tab Bacapi + prompt instalasi ...','ok');
+  setTimeout(function(){
+    window.open('bacapi.html','_blank');
+    print('PROMPT INSTALASI BACAPI DESKTOP AI','ok');
+    print('1. Jalankan file InstallBacapi.bat yang baru terunduh.');
+    print('2. Ikon Bacapi tertanam di Desktop (pin ke taskbar bila mau).');
+    print('3. Buka Bacapi, isi nama akun + API key SEKALI saja.');
+  },800);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "bit-browser",
+  "version": "1.0.0",
+  "description": "Bit Browser - Chromium-based web browser",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+  "author": "Bit Browser Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.bitbrowser.app",
+    "productName": "Bit Browser",
+    "win": {
+      "target": "nsis",
+      "icon": "icon.png"
+    }
+  },
+  "allowScripts": {
+    "electron@28.3.3": true
+  }
+}

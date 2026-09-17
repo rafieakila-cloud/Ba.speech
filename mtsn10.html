@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI MTsN 10 Banyuwangi — Bacium V5.6</title>
+<link rel="stylesheet" href="mtsn10.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand"><span class="mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 6c-2-1.5-5-2-8-2v14c3 0 6 .5 8 2 2-1.5 5-2 8-2V4c-3 0-6 .5-8 2z"/><path d="M12 6v14"/></svg></span><div><h1>AI MTsN 10 Banyuwangi</h1><p id="who">Bacium V5.6 • login Cube/Bacapi berlaku di sini</p></div></div>
+    <div class="hrow">
+      <select id="lang"><option value="id">Indonesia</option><option value="ar">Arab</option><option value="en">Inggris</option></select>
+      <select id="mode"><option value="info">Info Sekolah</option><option value="pr">Bantu PR</option></select>
+      <button id="btn-fs" title="Layar penuh">Fullscreen</button>
+      <button id="btn-auth">Masuk Cube</button>
+      <button id="btn-key">Key</button>
+    </div>
+  </header>
+  <div id="keypanel" class="hidden"><input type="password" id="api-key" placeholder="OpenRouter key sk-or-v1-…"><button id="btn-save">Simpan</button><span class="tiny">Key Cube (`cube_key`) dipakai otomatis bila ada.</span></div>
+  <div id="quick">
+    <button>PPDB & pendaftaran</button>
+    <button>Jadwal & ekstrakurikuler</button>
+    <button>Alamat & kontak</button>
+    <button>Bantu PR matematika</button>
+  </div>
+  <main id="chat"></main>
+  <div id="think" class="hidden">
+    <div class="book"><div class="page left"></div><div class="page right"></div></div>
+    <div class="cube3d"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div></div>
+    <span>Berpikir…</span>
+  </div>
+  <footer>
+    <label id="plus">+<input type="file" id="file" accept="image/*" hidden></label>
+    <button id="btn-deep">Deep</button>
+    <textarea id="input" rows="1" placeholder="Tanya soal MTsN 10 atau PR…"></textarea>
+    <button id="btn-send">Kirim</button>
+  </footer>
+  <div id="status">Siap.</div>
+</div>
+<div id="auth-modal" class="hidden"><div class="card">
+  <h3>Akun Cube</h3><p class="tiny">Sama seperti Cube: tersimpan lokal + hash SHA-256. Register di sini = bisa login di Cube, begitu pula sebaliknya.</p>
+  <div class="tabs"><button id="t-login" class="active">Login</button><button id="t-reg">Register</button></div>
+  <label>Username<input id="a-user"></label><label>Password<input id="a-pass" type="password"></label>
+  <div class="mrow"><button id="btn-go">Masuk</button><button id="btn-close">Tutup</button></div>
+  <p id="auth-msg" class="tiny"></p>
+</div></div>
+<script src="mtsn10.js"></script>
+</body>
+</html>

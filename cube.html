@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cube — Ask Anything</title>
+<link rel="stylesheet" href="cube.css">
+</head>
+<body>
+<div id="app">
+  <aside id="side">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l8 4.5v9L12 20l-8-4.5v-9L12 2z" stroke="#1F1E1B" stroke-width="1.8" fill="#fff"/><path d="M12 2v10m0 0l8-5.5M12 12L4 6.5" stroke="#C15F3C" stroke-width="1.5"/></svg>
+      <span>Cube</span>
+    </div>
+    <button id="btn-new">New Thread</button>
+    <nav>
+      <button class="nav active" data-v="home">Home</button>
+      <button class="nav" data-v="discover">Discover</button>
+      <button class="nav" data-v="library">Library</button>
+    </nav>
+    <div class="lbl">Threads</div>
+    <div id="threads"></div>
+    <div class="sp"></div>
+    <div id="userbox">
+      <button id="btn-auth">Sign In</button>
+      <button id="btn-key">API Key</button>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header id="top">
+      <div id="model-wrap">
+        <button id="model-btn"><span id="model-name">openrouter/free</span><span id="model-pill">…</span></button>
+        <div id="model-drop" class="hidden">
+          <input id="model-search" placeholder="Search models…">
+          <div id="model-list"></div>
+        </div>
+      </div>
+      <div id="profile" class="hidden"><span id="profile-name"></span><button id="btn-out">Out</button></div>
+      <div id="modes">
+        <button data-m="chat" class="active">Chat</button>
+        <button data-m="work">Cube Work</button>
+        <button data-m="codev">Codev</button>
+      </div>
+      <button id="btn-fs" title="Fullscreen">⛶</button>
+    </header>
+
+    <section id="view-home">
+      <h1>Ask Cube anything</h1>
+      <div id="suggest">
+        <button>Sejarah Candi Borobudur</button>
+        <button>Buatkan todo app HTML siap download</button>
+        <button>Jelaskan foto yang saya lampirkan</button>
+        <button>Siapa kamu?</button>
+      </div>
+      <div id="keypanel" class="hidden">
+        <input type="password" id="api-key" placeholder="OpenRouter key sk-or-v1-…">
+        <button id="btn-save-key">Save</button>
+      </div>
+      <details id="prd-box">
+        <summary>PR kompleks (PRD + tasks, opsional)</summary>
+        <textarea id="prd" rows="3" placeholder="Tempel PRD kompleks di sini… cth: Aplikasi kasir: login, stok, struk, laporan. Stack HTML+JS."></textarea>
+        <div class="prd-row">
+          <input id="task-input" placeholder="Tambah task manual + Enter">
+          <button id="btn-break">Breakdown</button>
+          <button id="btn-build">Kerjakan PR</button>
+        </div>
+        <ul id="task-list"></ul>
+      </details>
+    </section>
+
+    <section id="view-thread" class="hidden">
+      <div id="steps"></div>
+      <div id="rubik" class="hidden"><div class="cube3d"><div class="f f1"></div><div class="f f2"></div><div class="f f3"></div><div class="f f4"></div><div class="f f5"></div><div class="f f6"></div></div><span>Cube berpikir…</span></div>
+      <div id="answer"></div>
+      <div id="canvas" class="hidden"><div class="canvas-head"><span>Live Preview</span><button id="btn-canvas-close">×</button></div><iframe id="canvas-frame"></iframe></div>
+      <div id="srclist"></div>
+    </section>
+
+    <footer id="dock">
+      <label id="attach" title="Tambah foto/file">+<input type="file" id="file" accept="image/*,.txt,.md" multiple hidden></label>
+      <button id="btn-deep" title="Deep: jawaban lebih panjang">Deep</button>
+      <textarea id="q" rows="1" placeholder="Tulis di sini… Enter kirim"></textarea>
+      <span id="att-list"></span>
+      <button id="btn-ask">Ask</button>
+    </footer>
+
+    <section id="view-discover" class="hidden">
+      <h2>Discover</h2>
+      <div id="disc-grid"></div>
+    </section>
+
+    <section id="view-library" class="hidden">
+      <h2>Library</h2>
+      <div id="lib-list"></div>
+    </section>
+
+    <div id="status">Ready.</div>
+  </main>
+
+  <div id="auth-modal" class="hidden">
+    <div class="card">
+      <h3 id="auth-title">Cube Account</h3>
+      <p class="tiny">Sistem akun Cube berjalan lokal di browser ini (real, tersimpan + password di-hash SHA-256). Tanpa server, jadi akun hanya ada di perangkat ini.</p>
+      <div class="tabs"><button id="t-login" class="active">Login</button><button id="t-reg">Register</button></div>
+      <label>Username<input id="a-user" autocomplete="username"></label>
+      <label>Password<input id="a-pass" type="password" autocomplete="current-password"></label>
+      <div class="mrow"><button id="btn-go">Masuk</button><button id="btn-close">Tutup</button></div>
+      <p id="auth-msg" class="tiny"></p>
+    </div>
+  </div>
+  <div id="print-area" class="hidden"></div>
+</div>
+<script src="cube.js"></script>
+</body>
+</html>
