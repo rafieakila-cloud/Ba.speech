@@ -1,10 +1,9 @@
-# Bacapi Tools
-
-Kumpulan AI desktop lokal: Bacapi (Bacium V5.6), Cube, dan AI MTsN 10 Banyuwangi. Semua jalan 100% lokal + OpenRouter API.
+# Ba.speech — Snake Tools
 
 ## Isi
 
-- `bacapi.html/css/js` — Bacapi AI desktop (Chat/Work, plugins Word/Excel/PDF/gambar, mindmap, deep search)
+- `snake.html` — **Snake speech to text**: ubah suara jadi teks (Indonesia/Inggris/Arab), gratis tanpa API key, unduh .txt/.doc
+- `bacapi.html/css/js` — Bacapi AI desktop (Work, plugins Word/Excel/PDF/gambar, mindmap, deep search)
 - `bacapi-app/` — sumber aplikasi Electron (`main.js`, ikon)
 - `InstallBacapi.bat` — installer Windows: rakit `Bacapi.exe` + shortcut Desktop/Start Menu
 - `install.html` — halaman download animasi + terminal (`hit.bacapi`)

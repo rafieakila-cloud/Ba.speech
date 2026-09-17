@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snake — Speech to Text</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"Segoe UI",Inter,Arial,sans-serif;background:#0d0f14;color:#ececec;min-height:100vh;display:flex;justify-content:center}
+#app{width:100%;max-width:760px;padding:32px 18px 40px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#3DDC84,#0E7CFF);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:#06281a}
+h1{font-size:22px}p.sub{color:#9AA0AE;font-size:13px;margin-bottom:16px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+button,select{background:#171A21;color:#ececec;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 16px;font-size:14px;cursor:pointer}
+#btn-rec{background:linear-gradient(135deg,#3DDC84,#0E7CFF);border:none;font-weight:700}
+#btn-rec.live{animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.6}}
+#out{background:#12151c;border:1px solid rgba(255,255,255,.1);border-radius:14px;min-height:280px;padding:16px;font-size:16px;line-height:1.8;white-space:pre-wrap}
+#out .tmp{color:#9AA0AE}
+#out .ts{color:#3DDC84;font-size:12px}
+#status{font-size:12px;color:#9AA0AE;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header><span class="logo">S</span><h1>Snake — Speech to Text</h1></header>
+  <p class="sub">Ubah suara jadi teks. Gratis, tanpa API key, jalan di browser.</p>
+  <div class="bar">
+    <button id="btn-rec">Mulai Rekam</button>
+    <select id="lang"><option value="id-ID">Indonesia</option><option value="en-US">English</option><option value="ar-SA">Arab</option></select>
+    <button id="btn-copy">Salin</button>
+    <button id="btn-txt">Unduh .txt</button>
+    <button id="btn-doc">Unduh .doc</button>
+    <button id="btn-clear">Hapus</button>
+  </div>
+  <div id="out"></div>
+  <div id="status">Siap. Catatan: butuh Chrome/Edge + mikrofon (buka via https/localhost agar mic diizinkan).</div>
+</div>
+<script>
+const out=document.getElementById('out'),st=document.getElementById('status');
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null,live=false,finals=[];
+function ts(){return new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+function render(tmp){
+  out.innerHTML=finals.map(f=>'<span class="ts">['+f.t+']</span> '+f.x.replace(/</g,'&lt;')).join('<br>')+(tmp?'<br><span class="tmp">'+tmp.replace(/</g,'&lt;')+'</span>':'');
+  out.scrollTop=out.scrollHeight;
+}
+document.getElementById('btn-rec').onclick=function(){
+  if(!SR){st.textContent='Browser tidak mendukung Speech Recognition. Pakai Chrome/Edge.';return;}
+  if(live){rec.stop();return;}
+  rec=new SR();rec.lang=document.getElementById('lang').value;rec.continuous=true;rec.interimResults=true;
+  rec.onresult=function(e){
+    let tmp='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal)finals.push({t:ts(),x:t.trim()});
+      else tmp+=t;
+    }
+    render(tmp);
+  };
+  rec.onerror=function(e){st.textContent='Error: '+e.error+' (cek izin mikrofon + https).';setLive(false);};
+  rec.onend=function(){if(live){try{rec.start();}catch(e){setLive(false);}}};
+  try{rec.start();setLive(true);st.textContent='Merekam... bicara sekarang.';}catch(e){st.textContent='Gagal mulai: '+e.message;}
+};
+function setLive(v){live=v;document.getElementById('btn-rec').textContent=v?'Berhenti':'Mulai Rekam';document.getElementById('btn-rec').classList.toggle('live',v);if(!v)st.textContent='Berhenti. '+finals.length+' kalimat tersimpan.';}
+function text(){return finals.map(f=>'['+f.t+'] '+f.x).join('\n');}
+function dl(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);}
+document.getElementById('btn-copy').onclick=function(){if(!text())return;navigator.clipboard.writeText(text());st.textContent='Tersalin.';};
+document.getElementById('btn-txt').onclick=function(){if(text())dl('snake-transkrip.txt',text(),'text/plain;charset=utf-8');};
+document.getElementById('btn-doc').onclick=function(){if(text())dl('snake-transkrip.doc','<html><head><meta charset="utf-8"></head><body><h1>Snake Transkrip</h1><p>'+text().replace(/\n/g,'<br>')+'</p></body></html>','text/html');};
+document.getElementById('btn-clear').onclick=function(){finals=[];render('');st.textContent='Dihapus.';};
+</script>
+</body>
+</html>
